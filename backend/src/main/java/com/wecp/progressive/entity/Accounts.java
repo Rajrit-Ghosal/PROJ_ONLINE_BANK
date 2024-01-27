@@ -1,64 +1,49 @@
 package com.wecp.progressive.entity;
-import java.util.*;
 
-//import ch.qos.logback.core.joran.conditional.ElseAction;
+public class Accounts implements Comparable<Accounts> {
 
-public class Accounts /*implements Comparable<Accounts>*/{
-    private int account_id;
-    private int customer_id;
+    private int accountId;
+    private int customerId;
     private double balance;
-    // System.out.println("RECKERS");
+
     public Accounts() {
+        // constrcutor
     }
-    public Accounts(int account_id, int customer_id, double balance) {
-        this.account_id = account_id;
-        this.customer_id = customer_id;
+
+    public Accounts(int accountId, int customerId, double balance) {
+        this.accountId = accountId;
+        this.customerId = customerId;
         this.balance = balance;
     }
-    public int getAccount_id() {
-        return account_id;
+
+    // Getters and setters
+    public int getAccountId() {
+        return accountId;
     }
-    public void setAccount_id(int account_id) {
-        this.account_id = account_id;
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
-    public int getCustomer_id() {
-        return customer_id;
+
+    public int getCustomerId() {
+        return customerId;
     }
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
+
     public double getBalance() {
         return balance;
     }
+
     public void setBalance(double balance) {
         this.balance = balance;
     }
-    
-    
-    // public int compareTo(Accounts a)
-    // {
-    //      if(this.balance>a.balance)
-    //      {
-    //         return -1;
-    //      }
-    //      else if(this.balance<a.balance)
-    //      {
-    //         return 1;
-    //      }
-    //      else{
-    //         return 0;
 
-    //      }
-    
-    
-    
     @Override
-    public String toString() {
-        return "account_id=" + account_id + ", customer_id=" + customer_id + ", balance=" + balance;
+    public int compareTo(Accounts account2) {
+        // Implement comparison logic based on account balance
+        return Double.compare(this.getBalance(), account2.getBalance());
     }
-    
-    
-    
-
-
 }

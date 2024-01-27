@@ -1,38 +1,35 @@
 package com.wecp.progressive.entity;
 
-import java.util.*;
 
-public class Customers /*implements Comparable<Customers>*/{
-    private int customer_id;
+
+public class Customers implements Comparable<Customers> {
+
+    private int customerId;
     private String name;
     private String email;
     private String username;
     private String password;
     private String role;
 
-    public Customers(){
-        
+    public Customers() {
+        // constructor
     }
 
-    
-
-    public Customers(int customer_id, String name, String email, String username, String password, String role) {
-        this.customer_id = customer_id;
+    public Customers(int customerId, String name, String email, String username, String password) {
+        this.customerId = customerId;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
-
-
-    public int getCustomer_id() {
-        return customer_id;
+    // Getters and setters
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getName() {
@@ -50,7 +47,6 @@ public class Customers /*implements Comparable<Customers>*/{
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getUsername() {
         return username;
     }
@@ -75,24 +71,9 @@ public class Customers /*implements Comparable<Customers>*/{
         this.role = role;
     }
 
-
-
     @Override
-    public String toString() {
-        return "customer_id=" + customer_id + ", name=" + name + ", email=" + email + ", username="
-                + username + ", password=" + password + ", role=" + role + "]";
+    public int compareTo(Customers customer2) {
+        // Implement comparison logic based on customer name
+        return this.getName().compareTo(customer2.getName());
     }
-
-
-
-    /*@Override
-    public int compareTo(Customers o) {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
-
-       return this.getName().compareTo(o.getName());
-    }*/
-        
-
-
 }
