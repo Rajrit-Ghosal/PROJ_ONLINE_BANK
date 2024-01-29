@@ -16,48 +16,48 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    // @Autowired
-    // CustomerDAO customerDAO;
+     @Autowired
+     CustomerDAO customerDAO;
     
     private static List<Customers> customersList = new ArrayList<>();
 
-    // public CustomerServiceImpl(CustomerDAO customerDAO) {
-    //     //this.customerDAO = customerDAO;
-    // }
+    public CustomerServiceImpl(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
+    }
 
     @Override
     public List<Customers> getAllCustomers() throws SQLException {
-        //return customerDAO.getAllCustomers();
-        return null;
+        return customerDAO.getAllCustomers();
+        //return null;
     }
 
     @Override
     public Customers getCustomerById(int customerId) throws SQLException {
-       // return customerDAO.getCustomerById(customerId);
-       return null;
+       return customerDAO.getCustomerById(customerId);
+       //return null;
     }
 
     @Override
     public int addCustomer(Customers customers) throws SQLException {
-        //return customerDAO.addCustomer(customers);
-        return 0;
+        return customerDAO.addCustomer(customers);
+        
     }
 
     @Override
     public void updateCustomer(Customers customers) throws SQLException {
-        //customerDAO.updateCustomer(customers);
+        customerDAO.updateCustomer(customers);
         
     }
 
     @Override
     public void deleteCustomer(int customerId) throws SQLException {
-        //customerDAO.deleteCustomer(customerId);
+        customerDAO.deleteCustomer(customerId);
         //return null;
     }
 
     @Override
     public List<Customers> getAllCustomersSortedByName() throws SQLException {
-        List<Customers> sortedCustomers = customersList;
+        List<Customers> sortedCustomers = customerDAO.getAllCustomers();
         if (sortedCustomers != null) {
             Collections.sort(sortedCustomers);
         }

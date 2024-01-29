@@ -2,102 +2,92 @@ package com.wecp.progressive.controller;
 
 
 import com.wecp.progressive.entity.Customers;
-import com.wecp.progressive.entity.Transactions;
-import com.wecp.progressive.service.CustomerServiceImpl;
+import com.wecp.progressive.service.CustomerService;
+
+import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-import java.util.List;
+
 @RestController
 public class CustomerController {
     @Autowired
-    private CustomerServiceImpl service;
-    
+    private CustomerService customerService;
+
     @GetMapping("/customers")
-    public ResponseEntity<List<Customers>> getAllCustomers() {
-        return null;
+    public ResponseEntity<List<Customers>>  getAllCustomers()
+    {
+        try {
+            List<Customers> list = customerService.getAllCustomers();
+            return new ResponseEntity<>(list,HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/customers/{customerID}")
-    public ResponseEntity<Customers> getCustomerById(@PathVariable int customerId) {
-        // try {
-        //     return new ResponseEntity<>(service.getCustomerById(customerId),HttpStatus.OK);
-        // } catch (SQLException e) {
-        //     // TODO Auto-generated catch block
-        //     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        // }
-        return null;
+    public ResponseEntity<Customers> getCustomerById(@PathVariable int customerID)
+    {
+        try {
+            Customers customers = customerService.getCustomerById(customerID);
+            return new ResponseEntity<>(customers,HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/customers")
-    public ResponseEntity<Integer> addCustomer(@RequestBody Customers customers) {
-        // try {
-        //     return new ResponseEntity<>(service.addCustomer(customers),HttpStatus.OK);
-        // } catch (SQLException e) {
-        //     // TODO Auto-generated catch block
-        //     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        // }
-        return null;
+    public ResponseEntity<Integer> addCustomer(@RequestBody Customers customers)
+    {
+        try {
+            Integer id = customerService.addCustomer(customers);
+            return new ResponseEntity<>(id,HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
- 
+
     @PutMapping("/customers/{customerID}")
-    public ResponseEntity<Void> updateCustomer(int customerId, Customers customers) {
-        // try {
-        //     //ResponseEntity rs=new ResponseEntity<>(service.updateCustomer(customers);)
-           
-        
-        // } catch (SQLException e) {
-        //     // TODO Auto-generated catch block
-        //     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        // }
-        return null;
+    public void updateCustomer(@PathVariable int customerID,@RequestBody Customers updatedCustomers)
+    {
+        try {
+            customerService.updateCustomer(updatedCustomers);
+        } catch (SQLException e) {
+        }
     }
+
     @DeleteMapping("/customers/{customerID}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable int customerId) {
-        return null;
+    public  void deleteCustomers(@PathVariable int customerID)
+    {
+        try {
+            customerService.deleteCustomer(customerID);
+        } catch (SQLException e) {
+        }
     }
 
     @GetMapping("/customers/fromArrayList")
-    public ResponseEntity<List<Customers>> getAllCustomersFromArrayList() {
-        return null;
+    public ResponseEntity<List<Customers>> getAllCustomersFromArrayList()
+    {
+        List<Customers> list = customerService.getAllCustomersFromArrayList();
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
-    
-    @GetMapping("/customers/toArrayList")
-    public ResponseEntity<List<Customers>> addCustomersToArrayList(Customers customers) {
-        //customersList.add(customers);
-        return null;
+    @PostMapping("/customers/toArrayList")
+    public ResponseEntity<List<Customers>> addCustomersToArrayList(@RequestBody Customers customers)
+    {
+        List<Customers> list = customerService.addCustomersToArrayList(customers);
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
-    @GetMapping("/customers/fromArrayList")
-    public  ResponseEntity<List<Customers>> getAllCustomersSortedByNameFromArrayList(){
-        // List<Customers> sortedCustomers = customersList;
-        // Collections.sort(sortedCustomers);
-        // return sortedCustomers;
-        return null;
+    @GetMapping("/customers/fromArrayList/{customerId}")
+    public ResponseEntity<List<Customers>> getAllCustomersSortedByNameFromArrayList()
+    {
+        List<Customers> list = customerService.getAllCustomersSortedByNameFromArrayList();
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public ResponseEntity<List<Transactions>> getAllTransactionsByCustomerId(int cutomerId) {
-        return null;
-    }
 }
