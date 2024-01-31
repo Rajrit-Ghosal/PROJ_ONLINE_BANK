@@ -61,7 +61,8 @@ public class CustomerServiceImplJpa implements CustomerService{
     @Override
     public List<Customers> getAllCustomersSortedByName() throws SQLException {
        
-        return null;
+        Collections.sort(customersList);
+        return customersList;
     }
  
     @Override

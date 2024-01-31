@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +33,10 @@ public class AccountController {
     public ResponseEntity<Accounts> getAccountById(int accountId)throws SQLException {
         return new ResponseEntity<Accounts>(accountService.getAccountById(accountId),HttpStatus.OK);
     }
-
-    public ResponseEntity<List<Accounts>> getAccountsByUser(String param) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    
+    @GetMapping("/user/{customerId}")
+    public ResponseEntity<List<Accounts>> getAccountsByUser(@PathVariable int customerId) throws SQLException {
+        return new ResponseEntity<>(accountService.getAccountsByUser(customerId),HttpStatus.OK);
         //return new ResponseEntity<List<Accounts>>(accountService.getAccountsByUser(),HttpStatus.OK);
     }
     @PostMapping

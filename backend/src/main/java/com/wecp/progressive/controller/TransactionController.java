@@ -17,23 +17,36 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-
+    @GetMapping
     public ResponseEntity<List<Transactions>> getAllTransactions()throws SQLException {
         return new ResponseEntity<>(transactionService.getAllTransactions(),HttpStatus.OK);
     }
+    
+    @GetMapping("/{transactionId}")
     public ResponseEntity<Transactions> getTransactionById(int transactionId)throws SQLException {
         return new ResponseEntity<>(transactionService.getTransactionById(transactionId),HttpStatus.OK);
     }
+    @PostMapping
     public ResponseEntity<Integer> addTransaction(Transactions transaction)throws SQLException{
         return new ResponseEntity<>(transactionService.addTransaction(transaction),HttpStatus.CREATED);
     }
+    
+    @PutMapping("/{transactionId}")
     public ResponseEntity<Void> updateTransaction(int transactionId, Transactions transaction) throws SQLException {
         transaction.getTransactionId();
         transactionService.updateTransaction(transaction);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    @DeleteMapping("/{transactionId}")
     public ResponseEntity<Void> deleteTransaction(int transactionId)throws SQLException{
         transactionService.deleteTransaction(transactionId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/customer{customerId}")
+    public ResponseEntity<List<Transactions>> getTransactionsByCustomerId(int customerId)throws SQLException {
+        return new ResponseEntity<>(transactionService.getTransactionsByCustomerId(customerId),HttpStatus.OK);
+    }
+
 }
